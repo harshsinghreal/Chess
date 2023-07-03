@@ -1,20 +1,19 @@
-console.log("hi");
+function pawnMove(startId, targetId, width) {
+    const startRow = [8, 9, 10, 11, 12, 13, 14, 15]
 
-export function pawnMove(startId,targetId,width){
-    const startRow = [8,9,10,11,12,13,14,15]
-
-            if (startRow.includes(startId) &&
-                startId + width * 2 === targetId ||
-                startId + width === targetId ||
-                startId + width - 1 === targetId && document.querySelector(`[square-id="${startId + width - 1}"]`).firstChild ||
-                startId + width + 1 === targetId && document.querySelector(`[square-id="${startId + width + 1}"]`).firstChild
-            ) {console.log("retrn pwn");
-                return true;
-            }
+    if (startRow.includes(startId) &&
+        startId + width * 2 === targetId ||
+        startId + width === targetId ||
+        startId + width - 1 === targetId && document.querySelector(`[square-id="${startId + width - 1}"]`).firstChild ||
+        startId + width + 1 === targetId && document.querySelector(`[square-id="${startId + width + 1}"]`).firstChild
+    ) {
+        console.log("retrn pwn");
+        return true;
+    }
 }
 
 
-export function bishopMove(startId, targetId,width) {
+function bishopMove(startId, targetId, width) {
     console.log("i am bishop");
     if (
         //first direction
@@ -61,16 +60,16 @@ export function bishopMove(startId, targetId,width) {
     }
 }
 
- export function knightMove(startId, targetId,width) {
+function knightMove(startId, targetId, width) {
     if (
-        startId + width*2-1 ===targetId ||
-        startId + width*2+1 ===targetId ||
-        startId + width+2 ===targetId ||
-        startId + width-2 === targetId ||
-        startId - width*2-1 ===targetId ||
-        startId - width*2+1 ===targetId ||
-        startId - width+2 ===targetId ||
-        startId - width-2 === targetId
+        startId + width * 2 - 1 === targetId ||
+        startId + width * 2 + 1 === targetId ||
+        startId + width + 2 === targetId ||
+        startId + width - 2 === targetId ||
+        startId - width * 2 - 1 === targetId ||
+        startId - width * 2 + 1 === targetId ||
+        startId - width + 2 === targetId ||
+        startId - width - 2 === targetId
 
     ) {
         return true;
@@ -78,7 +77,7 @@ export function bishopMove(startId, targetId,width) {
 }
 
 
- export function rookMove(startId, targetId,width) {
+function rookMove(startId, targetId, width) {
     if (
         // forward
         startId + width === targetId ||
@@ -124,7 +123,7 @@ export function bishopMove(startId, targetId,width) {
 }
 
 
-  export function kingtMove(startId, targetId,width) {
+function kingtMove(startId, targetId, width) {
     console.log("test");
     if (startId + 1 == targetId ||
         startId - 1 === targetId ||

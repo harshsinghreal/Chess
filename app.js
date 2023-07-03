@@ -1,4 +1,5 @@
-import { pawnMove, kingtMove, knightMove, bishopMove, rookMove } from './moves.js'
+//import { pawnMove, kingtMove, knightMove, bishopMove, rookMove } from './moves.js'
+// you can use this import also add export before functions on moves.js
 const gameoBard = document.querySelector('#gameboard')
 const playerDisplay = document.querySelector("#player")
 const infoDisplay = document.querySelector("#info-display")
@@ -53,8 +54,14 @@ allSquares.forEach((square) => {
     square.addEventListener('dragstart', dragStart);
     square.addEventListener('dragover', dragOver);
     square.addEventListener('drop', dragDrop);
+    square.addEventListener('touchstart', touchStart);
+    square.addEventListener('touchmove', touchMove);
+    square.addEventListener('touchend', touchEnd);
 
 })
+
+
+// FOR PCS
 
 let startPosId
 let draggedElement
@@ -115,6 +122,85 @@ console.log("valid -> " +valid);
    // changePlayer()
 
 }
+
+
+// FOR MOBILE DEVICES
+
+let touchStartPos;
+let touchSquare;
+
+function touchStart(e) {
+    e.preventDefault();
+    touchStartPos = e.touches[0];
+    touchSquare = e.target;
+}
+
+function touchMove(e) {
+    e.preventDefault();
+}
+
+function touchEnd(e) {
+    e.preventDefault();
+    if (touchStartPos && touchSquare) {
+        const touchEndPos = e.changedTouches[0];
+        const rect = touchSquare.getBoundingClientRect();
+        const squareId = touchSquare.getAttribute('square-id');
+        const squareSize = rect.width;
+
+        // Calculate the change in position
+        const deltaX = touchEndPos.clientX - touchStartPos.clientX;
+        const deltaY = touchEndPos.clientY - touchStartPos.clientY;
+
+        // Check if the touch move was significant (greater than 10% of the square size)
+        if (Math.abs(deltaX) > squareSize * 0.1 || Math.abs(deltaY) > squareSize * 0.1) {
+            // Determine the direction of the touch move
+            const direction = Math.abs(deltaX) > Math.abs(deltaY)
+                ? (deltaX > 0 ? 'right' : 'left')
+                : (deltaY > 0 ? 'down' : 'up');
+
+            // Calculate the new square position
+            let newSquareId;
+            switch (direction) {
+                case 'up':
+                    newSquareId = squareId - width;
+                    break;
+                case 'down':
+                    newSquareId = squareId + width;
+                    break;
+                case 'left':
+                    newSquareId = squareId - 1;
+                    break;
+                case 'right':
+                    newSquareId = squareId + 1;
+                    break;
+                default:
+                    return;
+            }
+
+            // Check if the move is valid and make the move if valid
+            const valid = checkIfValid(allSquares[newSquareId]);
+            if (valid) {
+                allSquares[newSquareId].append(touchSquare);
+                checkForWin();
+                changePlayer();
+            }
+        }
+
+        // Reset touchStartPos and touchSquare
+        touchStartPos = null;
+        touchSquare = null;
+    }
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

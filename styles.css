@@ -52,3 +52,9 @@ path{
     drop-shadow(0px 1px 1px #000000)
 }
 
+/* Add styles for touch interactions */
+.square:active {
+    /* Add some visual feedback, like changing the background color */
+    background-color: lightblue;
+}
+ 
