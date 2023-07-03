@@ -1,9 +1,9 @@
 function pawnMove(startId, targetId, width) {
     const startRow = [8, 9, 10, 11, 12, 13, 14, 15]
-
+    console.log("it is-> " + document.querySelector(`[square-id="${startId + width}"]`));
     if (startRow.includes(startId) &&
         startId + width * 2 === targetId ||
-        startId + width === targetId ||
+        startId + width === targetId && !document.querySelector(`[square-id="${startId + width}"]`).firstChild ||
         startId + width - 1 === targetId && document.querySelector(`[square-id="${startId + width - 1}"]`).firstChild ||
         startId + width + 1 === targetId && document.querySelector(`[square-id="${startId + width + 1}"]`).firstChild
     ) {
