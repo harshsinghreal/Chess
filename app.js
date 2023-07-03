@@ -21,7 +21,7 @@ const startPieces = [
 ]
 function createBoard() {
     startPieces.forEach((startPiece, i) => {
-       
+
         const square = document.createElement('div')
         square.classList.add('square')
         square.innerHTML = startPiece;
@@ -54,14 +54,8 @@ allSquares.forEach((square) => {
     square.addEventListener('dragstart', dragStart);
     square.addEventListener('dragover', dragOver);
     square.addEventListener('drop', dragDrop);
-    square.addEventListener('touchstart', touchStart);
-    square.addEventListener('touchmove', touchMove);
-    square.addEventListener('touchend', touchEnd);
 
 })
-
-
-// FOR PCS
 
 let startPosId
 let draggedElement
@@ -78,7 +72,7 @@ function dragOver(e) {
 }
 
 function dragDrop(e) {
-    
+
     infoDisplay.textContent = ""
     e.stopPropagation()
     const correctGo = draggedElement.firstChild.classList.contains(playerGo)
@@ -87,11 +81,11 @@ function dragDrop(e) {
     const takenByOpponent = e.target.firstChild?.classList.contains(opponentGO)
     const valid = checkIfValid(e.target)
 
-console.log("valid -> " +valid);
+    console.log("valid -> " + valid);
     if (correctGo) {
         if (takenByOpponent && valid) {
             e.target.parentNode.append(draggedElement)
-             e.target.remove();
+            e.target.remove();
             checkForWin()
             changePlayer()
             return
@@ -119,88 +113,9 @@ console.log("valid -> " +valid);
     //   e.target.parentNode.append(draggedElement)
     //   e.target.remove();
 
-   // changePlayer()
+    // changePlayer()
 
 }
-
-
-// FOR MOBILE DEVICES
-
-let touchStartPos;
-let touchSquare;
-
-function touchStart(e) {
-    e.preventDefault();
-    touchStartPos = e.touches[0];
-    touchSquare = e.target;
-}
-
-function touchMove(e) {
-    e.preventDefault();
-}
-
-function touchEnd(e) {
-    e.preventDefault();
-    if (touchStartPos && touchSquare) {
-        const touchEndPos = e.changedTouches[0];
-        const rect = touchSquare.getBoundingClientRect();
-        const squareId = touchSquare.getAttribute('square-id');
-        const squareSize = rect.width;
-
-        // Calculate the change in position
-        const deltaX = touchEndPos.clientX - touchStartPos.clientX;
-        const deltaY = touchEndPos.clientY - touchStartPos.clientY;
-
-        // Check if the touch move was significant (greater than 10% of the square size)
-        if (Math.abs(deltaX) > squareSize * 0.1 || Math.abs(deltaY) > squareSize * 0.1) {
-            // Determine the direction of the touch move
-            const direction = Math.abs(deltaX) > Math.abs(deltaY)
-                ? (deltaX > 0 ? 'right' : 'left')
-                : (deltaY > 0 ? 'down' : 'up');
-
-            // Calculate the new square position
-            let newSquareId;
-            switch (direction) {
-                case 'up':
-                    newSquareId = squareId - width;
-                    break;
-                case 'down':
-                    newSquareId = squareId + width;
-                    break;
-                case 'left':
-                    newSquareId = squareId - 1;
-                    break;
-                case 'right':
-                    newSquareId = squareId + 1;
-                    break;
-                default:
-                    return;
-            }
-
-            // Check if the move is valid and make the move if valid
-            const valid = checkIfValid(allSquares[newSquareId]);
-            if (valid) {
-                allSquares[newSquareId].append(touchSquare);
-                checkForWin();
-                changePlayer();
-            }
-        }
-
-        // Reset touchStartPos and touchSquare
-        touchStartPos = null;
-        touchSquare = null;
-    }
-}
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -225,7 +140,7 @@ function checkIfValid(target) {
             if (rookMove(startId, targetId, width)) return true; break;
 
         case 'queen':
-            if (rookMove(startId, targetId,width) || bishopMove(startId, targetId, width)) return true; break;
+            if (rookMove(startId, targetId, width) || bishopMove(startId, targetId, width)) return true; break;
 
         case 'king':
             if (kingtMove(startId, targetId, width)) return true; break;
