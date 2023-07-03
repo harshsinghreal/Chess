@@ -1,4 +1,4 @@
-import {pawnMove,kingtMove,knightMove,bishopMove,rookMove} from './moves.js'
+import { pawnMove, kingtMove, knightMove, bishopMove, rookMove } from './moves.js'
 const gameoBard = document.querySelector('#gameboard')
 const playerDisplay = document.querySelector("#player")
 const infoDisplay = document.querySelector("#info-display")
@@ -19,8 +19,8 @@ const startPieces = [
 
 ]
 function createBoard() {
-    //console.log(kingtMoverr);
     startPieces.forEach((startPiece, i) => {
+       
         const square = document.createElement('div')
         square.classList.add('square')
         square.innerHTML = startPiece;
@@ -71,18 +71,20 @@ function dragOver(e) {
 }
 
 function dragDrop(e) {
+    
+    infoDisplay.textContent = ""
     e.stopPropagation()
     const correctGo = draggedElement.firstChild.classList.contains(playerGo)
     const taken = e.target.classList.contains('piece')
-    const opponentGO = playerGo === 'white' ? 'black' : 'white'
+    const opponentGO = playerGo === 'black' ? 'white' : 'black'
     const takenByOpponent = e.target.firstChild?.classList.contains(opponentGO)
     const valid = checkIfValid(e.target)
 
-
+console.log("valid -> " +valid);
     if (correctGo) {
         if (takenByOpponent && valid) {
             e.target.parentNode.append(draggedElement)
-            e.target.remove();
+             e.target.remove();
             checkForWin()
             changePlayer()
             return
@@ -117,29 +119,30 @@ function dragDrop(e) {
 
 
 function checkIfValid(target) {
-   const targetId = Number(target.getAttribute('square-id')) || Number(target.parentNode.getAttribute('square-id'))
+    const targetId = Number(target.getAttribute('square-id')) || Number(target.parentNode.getAttribute('square-id'))
     const startId = Number(startPosId);
     const piece = draggedElement.id
     console.log(startId);
 
     switch (piece) {
         case 'pawn':
-           if (pawnMove(startId,targetId,width)) return true;  break;
-        
-       case 'knight':
-            if ( knightMove(startId,targetId,width))   return true; break;
+            console.log("this is pawn");
+            if (pawnMove(startId, targetId, width)) return true; break;
+
+        case 'knight':
+            if (knightMove(startId, targetId, width)) return true; break;
 
         case 'bishop':
-            if (bishopMove(startId, targetId,width)) return true; break;
+            if (bishopMove(startId, targetId, width)) return true; break;
 
         case 'rook':
-            if (rookMove(startId, targetId,width)) return true; break;
+            if (rookMove(startId, targetId, width)) return true; break;
 
         case 'queen':
-            if (bishopMove(startId, targetId,width) || rookMove(startId, targetId)) return true; break;
+            if (bishopMove(startId, targetId, width) || rookMove(startId, targetId)) return true; break;
 
         case 'king':
-            if (kingtMove(startId, targetId,width)) return true; break;
+            if (kingtMove(startId, targetId, width)) return true; break;
     }
 }
 
