@@ -3,8 +3,8 @@ const gameoBard = document.querySelector('#gameboard')
 const playerDisplay = document.querySelector("#player")
 const infoDisplay = document.querySelector("#info-display")
 const width = 8
-let playerGo = 'white'
-playerDisplay.textContent = 'white'
+let playerGo = 'black'
+playerDisplay.textContent = 'black'
 
 const startPieces = [
     rook, knight, bishop, queen, king, bishop, knight, rook,
@@ -112,7 +112,7 @@ console.log("valid -> " +valid);
     //   e.target.parentNode.append(draggedElement)
     //   e.target.remove();
 
-    changePlayer()
+   // changePlayer()
 
 }
 
