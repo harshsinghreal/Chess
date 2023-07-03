@@ -3,9 +3,10 @@
 const gameoBard = document.querySelector('#gameboard')
 const playerDisplay = document.querySelector("#player")
 const infoDisplay = document.querySelector("#info-display")
+ let content = document.querySelector("#content")
 const width = 8
 let playerGo = 'black'
-playerDisplay.textContent = 'black'
+playerDisplay.textContent = "Black's"
 
 const startPieces = [
     rook, knight, bishop, queen, king, bishop, knight, rook,
@@ -156,11 +157,14 @@ function changePlayer() {
     if (playerGo == 'black') {
         reverseIds()
         playerGo = 'white'
-        playerDisplay.textContent = 'white'
+        playerDisplay.textContent = "White's"
+        playerDisplay.style.color = "white"
+        playerDisplay.style.backgroundColor = "#abda01"
     } else {
         revertIds()
         playerGo = 'black'
-        playerDisplay.textContent = 'black'
+        playerDisplay.textContent = "Black's"
+        playerDisplay.style.color = "black"
     }
 }
 
