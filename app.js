@@ -139,7 +139,7 @@ function checkIfValid(target) {
             if (rookMove(startId, targetId, width)) return true; break;
 
         case 'queen':
-            if (bishopMove(startId, targetId, width) || rookMove(startId, targetId)) return true; break;
+            if (rookMove(startId, targetId,width) || bishopMove(startId, targetId, width)) return true; break;
 
         case 'king':
             if (kingtMove(startId, targetId, width)) return true; break;
